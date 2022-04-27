@@ -24,12 +24,15 @@ int main(int argc, char *argv[])
         std::cerr << "Please input the number of games N as an argument!\n";
         exit(1);
     }
-    std::uint64_t N = std::stol(argv[1]);
+    std::int64_t N = std::stol(argv[1]);
+    if (N <= 0) {
+        std::cerr << "Please input a positive N as an argument!\n";
+        exit(1);
+    }
     std::cout << "We're playing the game " << N << " times.\n";
     for (; N > 0; --N) {
-        game::Game *g = new game::Game(new game::RandomStrategy);
-        game_driver(*g, N);
-        delete g;
+        game::Game g(new game::RandomStrategy);
+        game_driver(g, N);
     }
     return 0;
 }
